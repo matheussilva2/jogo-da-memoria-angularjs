@@ -22,11 +22,11 @@
     --color-ranking-silver: #5EA2B2;
     --color-ranking-bronze: #D48448;
 
-    --color-gradient-colorful: linear-gradient(to right, #AA2AF4 0%, #6121EB 50%, #1DBA95 100%);
-    --color-gradient-neutral: linear-gradient(to right, #12122B 0%, #23233D 48%, #12122B 100%);
-    --color-gradient-cyan-dark: linear-gradient(to right, #11212B, #12122B);
-    --color-gradient-blue-dark: linear-gradient(to right, #212847, #12122B);
-    --color-gradient-purple-dark: linear-gradient(to right, #271C3D, #12122B);
+    --background-image-gradient-colorful: linear-gradient(to right, #AA2AF4 0%, #6121EB 50%, #1DBA95 100%);
+    --background-image-gradient-neutral: linear-gradient(to right, #12122B 0%, #23233D 48%, #12122B 100%);
+    --background-image-gradient-cyan-dark: linear-gradient(to right, #11212B, #12122B);
+    --background-image-gradient-blue-dark: linear-gradient(to right, #212847, #12122B);
+    --background-image-gradient-purple-dark: linear-gradient(to right, #271C3D, #12122B);
 }
 
 :root {
