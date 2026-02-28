@@ -1,1 +1,5 @@
-<p>game-board works!</p>
+<div class="grid grid-cols-3 w-full gap-3">
+    @for (i of auxGameArray(); track $index) {
+        <app-game-card cardIcon="/assets/cards/animals/cat-face.png" class="max-w-26.5 max-h-26.5 aspect-square rounded-2xl" />
+    }
+</div>
