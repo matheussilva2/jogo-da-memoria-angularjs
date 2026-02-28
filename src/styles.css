@@ -27,6 +27,58 @@
     --background-image-gradient-cyan-dark: linear-gradient(to right, #11212B, #12122B);
     --background-image-gradient-blue-dark: linear-gradient(to right, #212847, #12122B);
     --background-image-gradient-purple-dark: linear-gradient(to right, #271C3D, #12122B);
+
+    --text-heading-xl: 28px;
+    --text-heading-lg: 20px;
+    --text-heading-md: 18px;
+    --text-heading-sm: 16px;
+    --text-body-md: 16px;
+    --text-body-sm: 14px;
+
+    --leading-heading: 1.4;
+    --leading-body-md: 24px;
+    --leading-body-sm: 16px;
+
+    --font-weight-extrabold: 800;
+    --font-weight-regular: 400;
+}
+
+@layer base {
+    h1 {
+        font-size: var(--text-heading-xl);
+        line-height: var(--leading-heading);
+        font-weight: var(--font-weight-extrabold);
+    }
+
+    h2 {
+        font-size: var(--text-heading-lg);
+        line-height: var(--leading-heading);
+        font-weight: var(--font-weight-extrabold);
+    }
+
+    h3 {
+        font-size: var(--textx-heading-md);
+        line-height: var(--leading-heading);
+        font-weight: var(--font-weight-extrabold);
+    }
+
+    h4 {
+        font-size: var(--text-heading-sm);
+        line-height: var(--leading-heading);
+        font-weight: var(--font-weight-extrabold);
+    }
+
+    p {
+        font-size: var(--text-body-md);
+        line-height: var(--leading-body-md);
+        font-weight: var(--font-weight-regular);
+    }
+
+    small, .text-sm {
+        font-size: var(--text-body-sm);
+        line-height: var(--leading-body-sm);
+        font-weight: var(--font-weight-regular);
+    }
 }
 
 :root {
