@@ -1,0 +1,56 @@
+<div class="w-full py-8 px-6">
+    <div class="flex flex-row justify-between mb-8">
+        <div>
+            <h2 class="mb-0.5">Boas vindas, {{auth.getPlayer()?.name}}</h2>
+            <p>
+                Comece a jogar selecionando <br />
+                os desafios abaixo!
+            </p>
+        </div>
+        <div>
+            <a routerLink="/historico" class="icon bg-gray-500 border border-gray-400">
+                <img src="/assets/icons/trophy.svg" width="20" height="20" alt="Histórico de partidas" />
+            </a>
+        </div>
+    </div>
+    <div class="mb-8">
+        <div class="flex justify-between items-center mb-3">
+            <span>Dificuldade</span>
+            <div class="bg-gray-500 rounded-lg py-1 px-3 flex gap-2">
+                <img src="/assets/icons/clock.svg" width="16" height="16" alt="Ícone de relógio" />
+                <span>5 min</span>
+            </div>
+        </div>
+        <div class="border border-gray-400 flex gap-2 rounded-full p-2 w-full">
+            
+            @for(difficulty of difficulties;track difficulty.key) {
+            <button
+            (click)="setDifficulty(difficulty.key)"
+            [class]="`${getDifficulty() === difficulty.key && 'border border-gray-400 bg-gray-500'} py-2.5 rounded-full flex justify-center items-center gap-2 flex-1 transition-all ease-in duration-200 cursor-pointer`">
+
+                <img [src]="difficulty.icon" width="16" height="14" [alt]="`Alterar dificuldade para ${difficulty.label}`" />
+                <span>{{difficulty.label}}</span>
+            
+            </button>
+            }
+        </div>
+    </div>
+    <div>
+        <span class="block mb-3">Desafios disponíveis</span>
+        <div class="flex flex-col gap-3">
+            @for (gamemode of game_modes; track gamemode.theme) {
+                <div>
+                    <div [class]="`p-5 flex justify-between items-center rounded-2xl ${gamemode.card_classes}`">
+                        <h3>{{gamemode.theme}}</h3>
+                        <button (click)="startGame(gamemode.slug)" type="button" [class]="`icon ${gamemode.button_classes}`">
+                            <img
+                                src="/assets/icons/arrow-left.svg"
+                                width="20" height="20"
+                                [alt]="`Iniciar jogo no tema ${gamemode.theme}`" />
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
