@@ -5,8 +5,8 @@
         <span>Teste sua memória enquanto aprende!</span>
     </div>
 
-    <div class="flex flex-col items-center gap-4 w-full">
-        <input type="text" placeholder="Digite seu nome" class="mb-4 w-full" />
-        <button class="btn-primary w-full">Comece a jogar!</button>
-    </div>
+    <form (submit)="login($event)" class="flex flex-col items-center gap-4 w-full">
+        <input [formControl]="nameControl" type="text" placeholder="Digite seu nome" name="player_name" class="mb-4 w-full" />
+        <button [disabled]="nameControl.invalid" type="submit" class="btn-primary w-full">Comece a jogar!</button>
+    </form>
 </div>
