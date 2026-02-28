@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from "../../services/auth";
 import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,9 @@ import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
   styleUrl: './home.css',
 })
 export class Home {
-  protected auth = inject(AuthService);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  
   nameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required, Validators.minLength(3)]
@@ -22,6 +25,7 @@ export class Home {
 
     if(this.nameControl.valid) {
       this.auth.login(player_name);
+      this.router.navigate(['/jogar']);
     }
   }
 }
