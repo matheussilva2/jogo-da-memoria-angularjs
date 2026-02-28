@@ -45,33 +45,45 @@
 
 @layer base {
     h1 {
+        @apply text-gray-100;
         font-size: var(--text-heading-xl);
         line-height: var(--leading-heading);
         font-weight: var(--font-weight-extrabold);
     }
 
     h2 {
+        @apply text-gray-100;
         font-size: var(--text-heading-lg);
         line-height: var(--leading-heading);
         font-weight: var(--font-weight-extrabold);
     }
 
     h3 {
+        @apply text-gray-100;
         font-size: var(--textx-heading-md);
         line-height: var(--leading-heading);
         font-weight: var(--font-weight-extrabold);
     }
 
     h4 {
+        @apply text-gray-100;
         font-size: var(--text-heading-sm);
         line-height: var(--leading-heading);
         font-weight: var(--font-weight-extrabold);
     }
 
-    p {
+    p, span {
         font-size: var(--text-body-md);
         line-height: var(--leading-body-md);
         font-weight: var(--font-weight-regular);
+    }
+
+    span {
+        @apply text-gray-200;
+    }
+
+    p {
+        @apply text-gray-100;
     }
 
     small, .text-sm {
