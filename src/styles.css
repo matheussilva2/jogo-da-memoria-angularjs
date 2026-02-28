@@ -81,6 +81,19 @@
     }
 }
 
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center justify-center transition-all duration-200 active:scale-95 text-white bg-gradient-colorful border border-[#9747FF] px-6 py-3 rounded-full cursor-pointer;
+        font-size: var(--text-body-md);
+        font-weight: var(--font-weight-extrabold);
+        box-shadow: -10px 10px 24px -3px rgba(154, 42, 244, 0.2), 10px 10px 24px -4px rgba(29, 186, 149, 0.2);
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center transition-all duration-200 active:scale-95 text-white border px-6 py-3 rounded-full cursor-pointer bg-gray-500 border-gray-400;
+    }
+}
+
 :root {
     font-family: var(--font-sans);
     font-optical-sizing: auto;
