@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { map } from "rxjs";
-import { GAME_MODES, IGameMode } from "../../constants/game";
+import { GAME_DIFFICULTIES, GAME_MODES, IGameDifficulty, IGameMode } from "../../constants/game";
+import { GameBoard } from "../../components/game-board/game-board";
 
 @Component({
   selector: 'app-game',
-  imports: [RouterLink],
+  imports: [RouterLink, GameBoard],
   templateUrl: './game.html',
   styleUrl: './game.css',
 })
@@ -28,7 +29,7 @@ export class Game {
     }
   );
 
-  readonly gameConfig = signal<IGameMode | null>(null);
+  readonly gameConfig = signal<{gamemode: IGameMode, difficulty: IGameDifficulty } | null>(null);
 
   constructor() {
     this.loadGameConfig();
@@ -37,9 +38,15 @@ export class Game {
   loadGameConfig() {
     const gamemode = GAME_MODES.filter((gamemode) => gamemode.slug === this.slug());
     if(!gamemode[0]) return this.router.navigate(['/jogar']);
+    
+    const difficulty = GAME_DIFFICULTIES.filter((difficulty) => difficulty.key === this.difficulty());
+    if(!difficulty[0]) return this.router.navigate(['/jogar']);
 
-    this.gameConfig.set(gamemode[0]);
-    console.log(this.gameConfig());
+    this.gameConfig.set({
+      gamemode: gamemode[0],
+      difficulty: difficulty[0]
+    });
+
     return;
   }
 }
