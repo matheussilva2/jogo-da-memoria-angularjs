@@ -10,13 +10,17 @@ import { Router } from "@angular/router";
   styleUrl: './home.css',
 })
 export class Home {
-  private auth = inject(AuthService);
+  protected auth = inject(AuthService);
   private router = inject(Router);
   
   nameControl = new FormControl('', {
     nonNullable: true,
     validators: [Validators.required, Validators.minLength(3)]
   });
+
+  constructor() {
+    this.nameControl.setValue(this.auth.getPlayer()?.name ?? '');
+  }
 
   login(event: SubmitEvent) {
     event.preventDefault();
