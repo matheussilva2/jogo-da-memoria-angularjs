@@ -38,6 +38,10 @@ export class AuthService {
     });
   }
 
+  getPlayer(): Player | null {
+    return this._player();
+  }
+
   private loadSession() {
     const data = localStorage.getItem('jm_player_data');
     if (data) this._player.set(JSON.parse(data));
