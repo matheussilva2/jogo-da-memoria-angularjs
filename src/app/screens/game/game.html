@@ -9,7 +9,10 @@
         </div>
     </div>
     <div class="mb-8">
-        <h2>{{gameConfig()?.theme}}</h2>
+        <h2>{{gameConfig()?.gamemode?.theme}}</h2>
         <p>Encontro todos os pares dentro do tempo!</p>
     </div>
+    @if(gameConfig()) {
+        <app-game-board [gameConfig]="gameConfig()" />
+    }
 </div>
