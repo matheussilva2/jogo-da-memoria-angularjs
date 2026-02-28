@@ -27,6 +27,8 @@ export class Gamemode {
   }
 
   startGame(gamemode_slug: string) {
-    this.router.navigate([`/jogar/${gamemode_slug}?difficulty=${this.getDifficulty()}`]);
+    this.router.navigate([`/jogar/${gamemode_slug}`], {
+      queryParams: { difficulty: this.getDifficulty()}
+    });
   }
 }
