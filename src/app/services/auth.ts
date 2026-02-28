@@ -26,6 +26,7 @@ export class AuthService {
         const new_player = BASIC_PLAYER_MOCK;
         new_player.name = player_name;
 
+        this.save(new_player);
         return new_player;
       }
 
@@ -34,8 +35,13 @@ export class AuthService {
         name: player_name
       }
 
+      this.save(updatedPlayer);
       return updatedPlayer;
     });
+  }
+
+  save(player_data: Player) {
+    localStorage.setItem('jm_player_data', JSON.stringify(player_data));
   }
 
   getPlayer(): Player | null {
