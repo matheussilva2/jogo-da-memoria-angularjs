@@ -1,11 +1,13 @@
 <div class="h-screen w-full py-8 px-6 max-w-137.5 mx-auto">
     <div class="w-full flex justify-between mb-8">
-        <a class="icon bg-gray-500 border border-gray-400" routerLink="/game">
+        <a class="icon bg-gray-500 border border-gray-400" routerLink="/jogar">
             <img src="/assets/icons/arrow-left.svg" width="20" height="20" alt="Voltar" />
         </a>
         <div class="icon w-fit bg-gray-500 border border-gray-400 flex items-center justify-center gap-2 px-4">
             <img src="/assets/icons/clock.svg" width="16" height="16" alt="Tempo restante"/>
-            <span class="font-bold text-feedback-info">05:00</span>
+            <span [class]="`font-bold ${remaining_time() > 15 ? 'text-feedback-info' : 'text-feedback-danger'}`">
+                {{ remaining_time() | timeFormat }}
+            </span>
         </div>
     </div>
     <div class="mb-8">
