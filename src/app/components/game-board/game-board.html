@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 w-full gap-3">
+<div class="grid w-full gap-3" [class]="getGridCols()">
     @for (i of auxGameArray(); track $index) {
         <app-game-card [cardIndex]="i" class="max-w-26.5 max-h-26.5 aspect-square rounded-2xl" />
     }
