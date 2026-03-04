@@ -13,6 +13,12 @@ export interface IGameMode {
     button_classes: string;
 }
 
+export interface ICard {
+    content: string;
+    isFlipped: boolean;
+    isLocked: boolean;
+}
+
 export const GAME_DIFFICULTIES: IGameDifficulty[] = [
     {
       key: "easy",
