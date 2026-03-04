@@ -11,6 +11,7 @@ export interface IGameMode {
     theme: string;
     card_classes: string;
     button_classes: string;
+    cards: string[];
 }
 
 export interface ICard {
@@ -45,21 +46,29 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
 
 export const GAME_MODES: IGameMode[] = [
     {
-        slug: "linguagens-de-programacao",
-        theme: "Linguagens de Programação",
+        slug: "emotes",
+        theme: "Encontre os Emotes - Animais",
         card_classes: "bg-gradient-purple-dark",
-        button_classes: "bg-accent-pupile"
-    },
-    {
-        slug: "frameworks-e-bibliotecas",
-        theme: "Frameworks e Bibliotecas",
-        card_classes: "bg-gradient-blue-dark",
-        button_classes: "bg-accent-blue"
-    },
-    {
-        slug: "ferramentas-e-desenvolvimento",
-        theme: "Ferramentas e Desenvolvimento",
-        card_classes: "bg-gradient-cyan-dark",
-        button_classes: "bg-accent-cyan"
-    },
+        button_classes: "bg-accent-pupile",
+        cards: [
+            "/assets/cards/animals/bear.png",
+            "/assets/cards/animals/bee.png",
+            "/assets/cards/animals/bunny.png",
+            "/assets/cards/animals/cat.png",
+            "/assets/cards/animals/chicken.png",
+            "/assets/cards/animals/cow.png",
+            "/assets/cards/animals/dog.png",
+            "/assets/cards/animals/fish.png",
+            "/assets/cards/animals/fox.png",
+            "/assets/cards/animals/hamster.png",
+            "/assets/cards/animals/horse.png",
+            "/assets/cards/animals/koala.png",
+            "/assets/cards/animals/leon.png",
+            "/assets/cards/animals/octopus.png",
+            "/assets/cards/animals/panda.png",
+            "/assets/cards/animals/pig.png",
+            "/assets/cards/animals/tiger.png",
+            "/assets/cards/animals/unicorn.png",
+        ]
+    }
 ];
