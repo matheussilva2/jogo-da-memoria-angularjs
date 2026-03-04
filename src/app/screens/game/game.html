@@ -5,8 +5,8 @@
         </a>
         <div class="icon w-fit bg-gray-500 border border-gray-400 flex items-center justify-center gap-2 px-4">
             <img src="/assets/icons/clock.svg" width="16" height="16" alt="Tempo restante"/>
-            <span [class]="`font-bold ${remaining_time() > 15 ? 'text-feedback-info' : 'text-feedback-danger'}`">
-                {{ remaining_time() | timeFormat }}
+            <span [class]="`font-bold ${game_service.remaining_time()}`">
+                {{ game_service.remaining_time() | timeFormat }}
             </span>
         </div>
     </div>
@@ -14,6 +14,11 @@
         <h2>{{gameConfig()?.gamemode?.theme}}</h2>
         <p>Encontro todos os pares dentro do tempo!</p>
     </div>
+    @if(is_game_starting()) {
+        <div class="absolute top-0 left-0 w-screen h-screen bg-gray-600/50 z-10 flex items-center justify-center">
+            <span class="text-[72px] font-extrabold text-gray-100">{{start_game_count()}}</span>
+        </div>
+    }
     @if(gameConfig()) {
         <app-game-board [gameConfig]="gameConfig()" />
     }

@@ -5,6 +5,8 @@ import { map } from "rxjs";
 import { GAME_DIFFICULTIES, GAME_MODES, IGameDifficulty, IGameMode } from "../../constants/game";
 import { GameBoard } from "../../components/game-board/game-board";
 import { TimeFormatPipe } from "../../pipes/time-format-pipe";
+import { GameService } from "../../services/game-service";
+import { delay } from "../../utils/delay";
 
 @Component({
   selector: 'app-game',
@@ -14,7 +16,7 @@ import { TimeFormatPipe } from "../../pipes/time-format-pipe";
 })
 export class Game {
   private route = inject(ActivatedRoute);
-  private router = inject(Router);
+  readonly game_service = inject(GameService);
 
   readonly slug = toSignal(
     this.route.params.pipe(
@@ -31,52 +33,39 @@ export class Game {
   );
 
   readonly gameConfig = signal<{gamemode: IGameMode, difficulty: IGameDifficulty } | null>(null);
-  readonly remaining_time = signal<number>(0);
-  private timer_id: any;
-  private game_started:boolean = false;
+  protected readonly start_game_count = signal(-1);
+  protected is_game_starting = signal(false);
 
   constructor() {
-    this.loadGameConfig();
+    this.game_service.initGame(this.slug(), this.difficulty());
+    const game_mode_data = this.game_service.getGameMode();
+    const game_difficulty_data = this.game_service.getGameDifficulty();
 
-    effect(() => {
-      if(this.game_started && this.remaining_time() < 0) {
-        this.stopGame();
-      }
-    });
-  }
+    if(game_mode_data && game_difficulty_data) {
+      this.gameConfig.set({
+        gamemode: game_mode_data,
+        difficulty: game_difficulty_data
+      });
 
-  startGame() {
-    if(this.timer_id) return;
-
-    this.timer_id = setInterval(() => {
-      this.remaining_time.update((prev) => prev-1);
-    }, 1000);
-  }
-
-  stopGame() {
-    if(this.timer_id) {
-      clearInterval(this.timer_id);
-      this.timer_id = undefined;
-      alert("Tempo esgotado!");
+      this.startGame();
     }
   }
 
-  loadGameConfig() {
-    const gamemode = GAME_MODES.filter((gamemode) => gamemode.slug === this.slug());
-    if(!gamemode[0]) return this.router.navigate(['/jogar']);
+  startGame() {
+    this.gameInitCount();
+  }
+
+  async gameInitCount() {
+    this.is_game_starting.set(true);
+    for(let i=3;i > 0; i--) {
+      this.start_game_count.set(i);
+      await delay(1000);
+    }
+
+    this.is_game_starting.set(false);
+  }
+
+  stopGame() {
     
-    const difficulty = GAME_DIFFICULTIES.filter((difficulty) => difficulty.key === this.difficulty());
-    if(!difficulty[0]) return this.router.navigate(['/jogar']);
-
-    this.gameConfig.set({
-      gamemode: gamemode[0],
-      difficulty: difficulty[0]
-    });
-
-    this.remaining_time.set(difficulty[0].time);
-
-    this.startGame();
-
-    return;
   }
 }
