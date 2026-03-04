@@ -1,4 +1,6 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
+import { GameService } from "../../services/game-service";
+import { ICard } from "../../constants/game";
 
 @Component({
   selector: 'app-game-card',
@@ -7,12 +9,38 @@ import { Component, input, signal } from '@angular/core';
   styleUrl: './game-card.css',
 })
 export class GameCard {
+  protected readonly game_service = inject(GameService);
+
   protected isFlipped = signal(false);
   protected backCardIcon = "/assets/icons/card-icon.svg";
-  readonly cardIcon = input.required<string>();
+  protected readonly card = signal<ICard | undefined>(undefined);
+  readonly cardIndex = input.required<number>();
+
+  constructor() {
+    effect(() => {
+      this.card.set(this.game_service.cards()[this.cardIndex()]);
+
+      if(this.isCardFlipped()) {
+        this.isFlipped.set(true);
+      } else {
+        this.isFlipped.set(false);
+      }
+    });
+  }
+
+  isCardFlipped() {
+    return (
+      this.game_service.cards_flipped().card_one === this.cardIndex() ||
+      this.game_service.cards_flipped().card_two === this.cardIndex()
+    );
+  }
+
+  isLocked() {
+    return this.card()?.isLocked;
+  }
 
   flipCard() {
-    this.isFlipped.update((prev) => !prev);
-    console.log(this.isFlipped);
+    if(this.card()?.isLocked) return;
+    this.game_service.flipCard(this.cardIndex());
   }
 }
