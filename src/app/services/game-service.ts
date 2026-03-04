@@ -41,25 +41,62 @@ export class GameService {
     });
   }
 
+  private getRandomCard(cards_content: string[], exclude: number[]): number {
+    const random_pick = Math.floor(Math.random() * cards_content.length - 1);
+
+    if(exclude.includes(random_pick)) {
+      return this.getRandomCard(cards_content, exclude);
+    } else {
+      return random_pick;
+    }
+  }
+
+  private shuffleArray(arr: ICard[]) {
+    for(let i = arr.length-1;i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+
+    return arr;
+  }
+
   shuffleCards() {
     const difficulty = this.game_difficulty();
     if(!difficulty) return false;
     
     const new_cards: ICard[] = [];
+    const cards_taken: number[] = [];
     
     if(this.game_difficulty()) {
-      for(let i = 0; i < difficulty.items_count; i++) {
-        new_cards.push({
-          content: "/assets/cards/animals/cat-face.png",
-          isFlipped: false,
-          isLocked: false
-        });
+      for(let i = 0; i < difficulty.items_count/2; i++) {
+        const random_pick = this.getRandomCard(this.game_mode()?.cards || [], cards_taken);
+        cards_taken.push(random_pick);
+
+        new_cards.push(
+          {
+            content: this.game_mode()?.cards[random_pick] || "",
+            isFlipped: false,
+            isLocked: false
+          },
+          {
+            content: this.game_mode()?.cards[random_pick] || "",
+            isFlipped: false,
+            isLocked: false
+          },
+        );
       }
     }
 
-    this.cards.set(new_cards);
+    this.cards.set(this.shuffleArray(new_cards));
 
     return true;
+  }
+
+  private checkWin() {
+    if(this.match_pairs().length >= this.cards().length/2) {
+      alert("Ganhou!");
+    }
   }
 
   async checkForMatch() {
@@ -79,6 +116,9 @@ export class GameService {
         card_one: -1,
         card_two: -1
       });
+      
+      this.checkWin();
+
       return true;
     } else {
       await delay(500);
