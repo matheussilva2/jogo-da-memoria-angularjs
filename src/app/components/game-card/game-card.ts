@@ -41,6 +41,7 @@ export class GameCard {
 
   flipCard() {
     if(this.card()?.isLocked) return;
-    this.game_service.flipCard(this.cardIndex());
+    
+    this.game_service.onCardFlip(this.cardIndex());
   }
 }

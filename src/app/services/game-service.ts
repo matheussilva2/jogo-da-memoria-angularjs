@@ -15,6 +15,7 @@ export class GameService {
   readonly match_pairs = signal<[number, number][]>([]);
   readonly remaining_time = signal(0);
   readonly penalty_label = signal("");
+  readonly is_busy = signal(false);
   private game_timer_id: any = null;
 
   private readonly router = inject(Router);
@@ -185,24 +186,32 @@ export class GameService {
     };
   }
 
-  flipCard(card_index: number) {
+  onCardFlip(card_index: number) {
     if(this.game_state() !== "playing") return;
 
+    if(this.is_busy()) return;
+    
+    this.flipCard(card_index);
+  }
+
+  async flipCard(card_index: number) {
+    this.is_busy.set(true);
+    
     if(this.cards_flipped().card_one !== -1 && this.cards_flipped().card_two !== -1) return;
+    if(this.cards_flipped().card_one === card_index) return;
 
     if(this.cards_flipped().card_one !== -1) {
-      if(this.cards_flipped().card_one === card_index) {
-        return;
-      } else {
-        this.cards_flipped.update(prev => (
-          {
-            card_one: prev.card_one,
-            card_two: card_index
-          }
-        ));
-        
-        this.checkForMatch();
-      }
+      this.cards_flipped.update(prev => (
+        {
+          card_one: prev.card_one,
+          card_two: card_index
+        }
+      ));
+      
+      await this.checkForMatch();
+      this.is_busy.set(false);
+
+      return;
     } else {
       this.cards_flipped.set(
         {
@@ -210,6 +219,9 @@ export class GameService {
           card_two: -1
         }
       );
+      this.is_busy.set(false);
+      
+      return;
     }
   }
 }
