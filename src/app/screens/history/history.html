@@ -1,1 +1,50 @@
-<p>history works!</p>
+<div class="min-h-screen w-full py-8 px-6 max-w-137.5 mx-auto mb-5">
+    <div class="w-full flex justify-between mb-8">
+        <a class="icon bg-gray-500 border border-gray-400" routerLink="/jogar">
+            <img src="/assets/icons/arrow-left.svg" width="20" height="20" alt="Voltar" />
+        </a>
+    </div>
+
+    <div class="flex gap-3 mb-8">
+        <div class="flex-1 px-5 py-4 border border-gray-400 rounded-2xl">
+            <span class="block text-heading-xl text-accent-pupile font-extrabold">3</span>
+            <span class="block text-heading-sm text-gray-200">Total de jogos</span>
+        </div>
+        <div class="flex-1 px-5 py-4 border border-gray-400 rounded-2xl">
+            <span class="block text-heading-xl text-accent-cyan font-extrabold">00:48</span>
+            <span class="block text-heading-sm text-gray-200">Tempo médio</span>
+        </div>
+    </div>
+
+    <div>
+        <span class="block mb-3 text-body-md text-gray-200">Ranking</span>
+
+        @for (match of match_history(); track $index) {
+            <div class="p-5 bg-gray-500 border border-gray-400 rounded-2xl mb-3 w-full">
+                <div class="flex justify-between mb-4">
+                    <span class="text-heading-md font-extrabold text-gray-100">{{match.theme}}</span>
+                    <span class="text-heading-md font-extrabold">{{$index + 1}}°</span>
+                </div>
+                <div class="flex gap-2">
+                    <span class="flex items-center justify-center px-2.5 py-1 bg-gray-400 rounded-lg">
+                        {{ match.date | date: 'dd/mm/yy' }}
+                    </span>
+                    <span class="flex items-center justify-center px-2.5 bg-gray-400 rounded-lg">
+                        {{ match.remaining_time | timeFormat}}
+                    </span>
+                    <span class="flex items-center justify-center px-2.5 bg-gray-400 rounded-lg">
+                        @if(match.difficulty_key === "easy") {
+                            <img src="/assets/icons/level-1.svg" alt="Dificuldade fácil" />
+                        }
+                        @else if(match.difficulty_key === "medium") {
+                            <img src="/assets/icons/level-2.svg" alt="Dificuldade média" />
+                        }
+                        @else if(match.difficulty_key === "hard") {
+                            <img src="/assets/icons/level-3.svg" alt="Dificuldade difícil" />
+                        }
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
