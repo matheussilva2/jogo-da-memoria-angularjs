@@ -77,10 +77,13 @@ export class Game {
 
   async gameInitCount() {
     this.is_game_starting.set(true);
+    this.game_service.setShowAllCards(true);
     for(let i=3;i > 0; i--) {
       this.start_game_count.set(i);
       await delay(1000);
     }
+
+    this.game_service.setShowAllCards(false);
 
     this.is_game_starting.set(false);
     this.game_service.startGame();
