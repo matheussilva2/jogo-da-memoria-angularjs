@@ -64,7 +64,7 @@ export class GameService {
   }
 
   private getRandomCard(cards_content: string[], exclude: number[]): number {
-    const random_pick = Math.floor(Math.random() * cards_content.length - 1);
+    const random_pick = Math.floor(Math.random() * (cards_content.length - 1));
 
     if(exclude.includes(random_pick)) {
       return this.getRandomCard(cards_content, exclude);
@@ -89,10 +89,12 @@ export class GameService {
     
     const new_cards: ICard[] = [];
     const cards_taken: number[] = [];
+    let taken_indexes = [];
     
     if(this.game_difficulty()) {
       for(let i = 0; i < difficulty.items_count/2; i++) {
         const random_pick = this.getRandomCard(this.game_mode()?.cards || [], cards_taken);
+        taken_indexes.push(random_pick);
         cards_taken.push(random_pick);
 
         new_cards.push(
