@@ -44,7 +44,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-3.svg",
       items_count: 18,
       duration: 120,
-      penalty: 10
+      penalty: 8
     },
 ];
 
