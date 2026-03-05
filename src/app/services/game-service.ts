@@ -118,6 +118,7 @@ export class GameService {
   private checkWin() {
     if(this.match_pairs().length >= this.cards().length/2) {
       this.game_state.set("won");
+      clearInterval(this.game_timer_id);
     }
   }
 
