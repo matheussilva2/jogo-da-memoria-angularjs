@@ -10,7 +10,7 @@ import { delay } from "../../utils/delay";
 
 @Component({
   selector: 'app-game',
-  imports: [RouterLink, GameBoard, TimeFormatPipe],
+  imports: [RouterLink, GameBoard, TimeFormatPipe, RouterLink],
   templateUrl: './game.html',
   styleUrl: './game.css',
 })
@@ -35,8 +35,22 @@ export class Game {
   readonly gameConfig = signal<{gamemode: IGameMode, difficulty: IGameDifficulty } | null>(null);
   protected readonly start_game_count = signal(-1);
   protected is_game_starting = signal(false);
+  protected won_modal_open = signal(false);
+  protected lose_modal_open = signal(false);
 
   constructor() {
+    this.initializeGame();
+
+    effect(() => {
+      if(this.game_service.game_state() === "won") {
+        this.won_modal_open.set(true);
+      } else if(this.game_service.game_state() === "lose") {
+        this.lose_modal_open.set(true);
+      }
+    });
+  }
+
+  initializeGame() {
     this.game_service.initGame(this.slug(), this.difficulty());
     const game_mode_data = this.game_service.getGameMode();
     const game_difficulty_data = this.game_service.getGameDifficulty();
@@ -63,9 +77,5 @@ export class Game {
     }
 
     this.is_game_starting.set(false);
-  }
-
-  stopGame() {
-    
   }
 }
