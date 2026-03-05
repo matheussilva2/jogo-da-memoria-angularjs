@@ -258,7 +258,7 @@ export class GameService {
       return a.moves - b.moves;
     });
 
-    const rank = stats.findIndex(stats => stats === stats_data) + 1;
+    const rank = stats.findIndex(stats => stats === stats_data);
 
     return rank;
   }
@@ -277,12 +277,19 @@ export class GameService {
         score *= 1.5;
         break;
     }
+
+    const date = {
+
+    }
     
     const stats:IGameStats = {
       remaining_time: this.remaining_time(),
+      difficulty_key: this.game_difficulty()?.key || "unknown",
       difficulty: this.game_difficulty()?.label || "Desconhecida",
       moves: this.moves(),
-      score
+      score,
+      theme: this.game_mode()?.theme  || "Desconhecido",
+      date: Date.now()
     };
 
     const stored_stats = this.getStoredStats();
