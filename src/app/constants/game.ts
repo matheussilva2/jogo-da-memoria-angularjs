@@ -21,7 +21,7 @@ export interface ICard {
     isLocked: boolean;
 }
 
-export interface IGameStatistics {
+export interface IGameStats {
     remaining_time: number,
     difficulty: string;
     moves: number;

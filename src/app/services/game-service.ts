@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStatistics } from "../constants/game";
+import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStats } from "../constants/game";
 import { Router } from "@angular/router";
 import { delay } from "../utils/delay";
 
@@ -17,6 +17,7 @@ export class GameService {
   readonly penalty_label = signal("");
   readonly is_busy = signal(false);
   private readonly show_all_cards = signal(false);
+  readonly current_stats_rank = signal(-1);
 
   private game_timer_id: any = null;
 
@@ -135,7 +136,7 @@ export class GameService {
     if(this.match_pairs().length >= this.cards().length/2) {
       this.game_state.set("won");
       clearInterval(this.game_timer_id);
-      this.generateGameStatistics();
+      this.generateGameStats();
     }
   }
 
@@ -238,7 +239,31 @@ export class GameService {
     }
   }
 
-  private generateGameStatistics() {
+  getStoredStats() {
+    let stored_stats_json = localStorage.getItem('jm_player_ranking') || '[]';
+    
+    let stored_stats_arr = JSON.parse(stored_stats_json) || [];
+
+    return stored_stats_arr;
+  }
+
+  getMatchRank(stats_data: IGameStats) {
+    const stats: IGameStats[] = [...this.getStoredStats(), stats_data];
+
+    stats.sort((a, b) => {
+      if(b.score !== a.score) {
+        return b.score - a.score;
+      }
+
+      return a.moves - b.moves;
+    });
+
+    const rank = stats.findIndex(stats => stats === stats_data) + 1;
+
+    return rank;
+  }
+
+  private generateGameStats() {
     let score = (this.remaining_time() * 20) - this.moves();
 
     switch(this.game_difficulty()?.key) {
@@ -253,19 +278,19 @@ export class GameService {
         break;
     }
     
-    const statistics:IGameStatistics = {
+    const stats:IGameStats = {
       remaining_time: this.remaining_time(),
       difficulty: this.game_difficulty()?.label || "Desconhecida",
       moves: this.moves(),
       score
     };
 
-    let current_statistics = localStorage.getItem('jm_player_ranking') || '[]';
-    
-    let current_statistics_arr = JSON.parse(current_statistics) || [];
+    const stored_stats = this.getStoredStats();
 
-    let new_statistics = [...current_statistics_arr, statistics];
+    let new_statistics = [...stored_stats, stats];
 
     localStorage.setItem("jm_player_ranking", JSON.stringify(new_statistics));
+
+    this.current_stats_rank.set(this.getMatchRank(stats));
   }
 }
