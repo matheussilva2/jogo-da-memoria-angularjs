@@ -59,9 +59,9 @@
                     </p>
                 </div>
                 <div class="flex flex-col items-center gap-4.5">
-                    <a routerLink="/jogar" class="btn-colorful font-extrabold">
+                    <button (click)="reInitializeGame()" class="btn-colorful font-extrabold">
                         Jogar novamente
-                    </a>
+                    </button>
                     <a routerLink="/ranking" class="text-accent-pupile text-body-md font-extrabold">
                         Ver ranking
                     </a>
@@ -94,9 +94,9 @@
                     </p>
                 </div>
                 <div class="flex flex-col items-center gap-4.5">
-                    <a (click)="initializeGame()" class="btn-secondary font-extrabold">
+                    <button (click)="reInitializeGame()" class="btn-secondary font-extrabold">
                         Jogar novamente
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

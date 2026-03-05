@@ -50,6 +50,12 @@ export class Game {
     });
   }
 
+  reInitializeGame() {
+    this.won_modal_open.set(false);
+    this.lose_modal_open.set(false);
+    this.initializeGame();
+  }
+
   initializeGame() {
     this.game_service.initGame(this.slug(), this.difficulty());
     const game_mode_data = this.game_service.getGameMode();
