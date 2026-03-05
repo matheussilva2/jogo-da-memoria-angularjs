@@ -21,6 +21,13 @@ export interface ICard {
     isLocked: boolean;
 }
 
+export interface IGameStatistics {
+    remaining_time: number,
+    difficulty: string;
+    moves: number;
+    score: number;
+}
+
 export const GAME_DIFFICULTIES: IGameDifficulty[] = [
     {
       key: "easy",

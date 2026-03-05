@@ -1,5 +1,5 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode } from "../constants/game";
+import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStatistics } from "../constants/game";
 import { Router } from "@angular/router";
 import { delay } from "../utils/delay";
 
@@ -32,6 +32,7 @@ export class GameService {
       this.game_difficulty.set(game_config.difficulty);
       this.game_timer_id = null;
       this.match_pairs.set([]);
+      this.moves.set(0);
       this.shuffleCards();
     }
   }
@@ -134,6 +135,7 @@ export class GameService {
     if(this.match_pairs().length >= this.cards().length/2) {
       this.game_state.set("won");
       clearInterval(this.game_timer_id);
+      this.generateGameStatistics();
     }
   }
 
@@ -198,6 +200,7 @@ export class GameService {
 
   onCardFlip(card_index: number) {
     if(this.game_state() !== "playing") return;
+    this.moves.update(prev => prev+1);
 
     if(this.is_busy()) return;
     
@@ -233,5 +236,36 @@ export class GameService {
       
       return;
     }
+  }
+
+  private generateGameStatistics() {
+    let score = (this.remaining_time() * 20) - this.moves();
+
+    switch(this.game_difficulty()?.key) {
+      case 'easy':
+        score *= 1;
+        break;
+      case 'medium':
+        score *= 1.2;
+        break;
+      case 'hard':
+        score *= 1.5;
+        break;
+    }
+    
+    const statistics:IGameStatistics = {
+      remaining_time: this.remaining_time(),
+      difficulty: this.game_difficulty()?.label || "Desconhecida",
+      moves: this.moves(),
+      score
+    };
+
+    let current_statistics = localStorage.getItem('jm_player_ranking') || '[]';
+    
+    let current_statistics_arr = JSON.parse(current_statistics) || [];
+
+    let new_statistics = [...current_statistics_arr, statistics];
+
+    localStorage.setItem("jm_player_ranking", JSON.stringify(new_statistics));
   }
 }
