@@ -4,6 +4,7 @@ export interface IGameDifficulty {
     icon: string;
     items_count: number;
     duration: number; // seconds
+    penalty: number;
 }
 
 export interface IGameMode {
@@ -26,21 +27,24 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       label: "Fácil",
       icon: "/assets/icons/level-1.svg",
       items_count: 6,
-      duration: 30
+      duration: 30,
+      penalty: 5
     },
     {
       key: "medium",
       label: "Médio",
       icon: "/assets/icons/level-2.svg",
       items_count: 12,
-      duration: 90
+      duration: 90,
+      penalty: 10
     },
     {
       key: "hard",
       label: "Difícil",
       icon: "/assets/icons/level-3.svg",
       items_count: 18,
-      duration: 120
+      duration: 120,
+      penalty: 20
     },
 ];
 
