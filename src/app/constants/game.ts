@@ -23,9 +23,12 @@ export interface ICard {
 
 export interface IGameStats {
     remaining_time: number,
+    difficulty_key: string;
     difficulty: string;
     moves: number;
     score: number;
+    theme: string;
+    date: number;
 }
 
 export const GAME_DIFFICULTIES: IGameDifficulty[] = [
@@ -51,7 +54,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-3.svg",
       items_count: 18,
       duration: 120,
-      penalty: 24
+      penalty: 20
     },
 ];
 
