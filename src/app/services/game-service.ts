@@ -11,9 +11,10 @@ export class GameService {
   readonly cards = signal<ICard[]>([]);
   readonly game_mode = signal<IGameMode | null>(null);
   readonly game_difficulty = signal<IGameDifficulty | null>(null);
-  readonly remaining_time = signal(0);
   readonly moves = signal(0);
   readonly match_pairs = signal<[number, number][]>([]);
+  readonly remaining_time = signal(0);
+  private game_timer_id: any = null;
 
   private readonly router = inject(Router);
   public cards_flipped = signal<{card_one: number, card_two: number}>({ card_one: -1, card_two: -1 });
@@ -25,13 +26,34 @@ export class GameService {
     } else {
       this.game_mode.set(game_config.gamemode);
       this.game_difficulty.set(game_config.difficulty);
+      this.game_timer_id = null;
       this.shuffleCards();
-      this.startGame();
     }
   }
 
   startGame() {
     this.game_state.set('playing');
+    this.remaining_time.set(this.game_difficulty()?.duration || 0);
+
+    this.startCountGameTime();
+  }
+
+  startCountGameTime() {
+    if(this.game_timer_id) return;
+
+    this.game_timer_id = setInterval(() => {
+      this.remaining_time.update(prev => prev - 1);
+
+      if(this.remaining_time() <= 0) {
+        this.loseGame();
+      }
+    }, 1000);
+  }
+
+  loseGame() {
+    this.game_state.set("lose");
+    clearInterval(this.game_timer_id);
+    this.game_timer_id = null;
   }
 
   unflipCards() {
@@ -151,6 +173,8 @@ export class GameService {
   }
 
   flipCard(card_index: number) {
+    if(this.game_state() !== "playing") return;
+
     if(this.cards_flipped().card_one !== -1 && this.cards_flipped().card_two !== -1) return;
 
     if(this.cards_flipped().card_one !== -1) {
