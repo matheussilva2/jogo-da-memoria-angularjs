@@ -12,7 +12,7 @@ export class GameService {
   readonly game_mode = signal<IGameMode | null>(null);
   readonly game_difficulty = signal<IGameDifficulty | null>(null);
   readonly moves = signal(0);
-  readonly match_pairs = signal<[number, number][]>([]);
+  readonly match_pairs = signal<number[][]>([]);
   readonly remaining_time = signal(0);
   readonly penalty_label = signal("");
   readonly is_busy = signal(false);
@@ -146,15 +146,17 @@ export class GameService {
       updated_cards[this.cards_flipped().card_one].isLocked = true;
       updated_cards[this.cards_flipped().card_two].isLocked = true;
       this.cards.set(updated_cards);
-
-      this.match_pairs.update(prev => [...prev, [this.cards_flipped().card_one, this.cards_flipped().card_two]]);
-
-      this.cards_flipped.set({
-        card_one: -1,
-        card_two: -1
-      });
       
-      this.checkWin();
+     const new_match_pair: number[] = [this.cards_flipped().card_one, this.cards_flipped().card_two];
+
+      if(this.match_pairs().includes(new_match_pair) || true){
+        this.match_pairs.update(prev => [...prev, new_match_pair]);
+        this.cards_flipped.set({
+          card_one: -1,
+          card_two: -1
+        });
+        this.checkWin(); 
+      }
 
       return true;
     } else {
