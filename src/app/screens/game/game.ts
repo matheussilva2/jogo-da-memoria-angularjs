@@ -77,5 +77,6 @@ export class Game {
     }
 
     this.is_game_starting.set(false);
+    this.game_service.startGame();
   }
 }
