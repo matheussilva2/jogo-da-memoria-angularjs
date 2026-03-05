@@ -14,6 +14,7 @@ export class GameService {
   readonly moves = signal(0);
   readonly match_pairs = signal<[number, number][]>([]);
   readonly remaining_time = signal(0);
+  readonly penalty_label = signal("");
   private game_timer_id: any = null;
 
   private readonly router = inject(Router);
@@ -146,10 +147,19 @@ export class GameService {
 
       return true;
     } else {
+      this.applyPenalty();
       await delay(500);
       this.unflipCards();
       return false;
     }
+  }
+
+  applyPenalty() {
+    this.remaining_time.update(prev => prev - (this.game_difficulty()?.penalty || 0));
+    this.penalty_label.set(`${this.game_difficulty()?.penalty || 0} seg.`);
+    setTimeout(() => {
+      this.penalty_label.set("");
+    }, 1000);
   }
 
   getGameMode() {
