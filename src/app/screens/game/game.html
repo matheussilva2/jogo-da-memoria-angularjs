@@ -5,9 +5,22 @@
         </a>
         <div class="icon w-fit bg-gray-500 border border-gray-400 flex items-center justify-center gap-2 px-4">
             <img src="/assets/icons/clock.svg" width="16" height="16" alt="Tempo restante"/>
-            <span [class]="`font-bold ${game_service.remaining_time()}`">
-                {{ game_service.remaining_time() | timeFormat }}
-            </span>
+            <div class="flex items-center">
+                <span [class]="`font-bold ${game_service.remaining_time()}`">
+                    {{ game_service.remaining_time() | timeFormat }}
+                </span>
+                <div class="absolute">
+                    @if(game_service.penalty_label() !== ""){
+                        <span
+                        animate.enter="penalty-animation"
+                        animate.leave="fade-out"
+
+                        class="relative text-red-500 font-extrabold text-heading-md">
+                            {{game_service.penalty_label()}}
+                        </span>
+                    }
+                </div>
+            </div>
         </div>
     </div>
     <div class="mb-8">
