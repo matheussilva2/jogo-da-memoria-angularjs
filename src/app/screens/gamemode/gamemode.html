@@ -18,7 +18,7 @@
             <span>Dificuldade</span>
             <div class="bg-gray-500 rounded-lg py-1 px-3 flex gap-2">
                 <img src="/assets/icons/clock.svg" width="16" height="16" alt="Ícone de relógio" />
-                <span>5 min</span>
+                <span>{{getDifficultyData().duration | timeFormat }}</span>
             </div>
         </div>
         <div class="border border-gray-400 flex gap-2 rounded-full p-2 w-full">
