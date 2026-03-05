@@ -31,6 +31,7 @@ export class GameService {
       this.game_mode.set(game_config.gamemode);
       this.game_difficulty.set(game_config.difficulty);
       this.game_timer_id = null;
+      this.match_pairs.set([]);
       this.shuffleCards();
     }
   }
@@ -147,21 +148,18 @@ export class GameService {
       updated_cards[this.cards_flipped().card_two].isLocked = true;
       this.cards.set(updated_cards);
       
-     const new_match_pair: number[] = [this.cards_flipped().card_one, this.cards_flipped().card_two];
-
-      if(this.match_pairs().includes(new_match_pair) || true){
-        this.match_pairs.update(prev => [...prev, new_match_pair]);
-        this.cards_flipped.set({
-          card_one: -1,
-          card_two: -1
-        });
-        this.checkWin(); 
-      }
+      const new_match_pair: number[] = [this.cards_flipped().card_one, this.cards_flipped().card_two];
+      this.match_pairs.update(prev => [...prev, new_match_pair]);
+      this.cards_flipped.set({
+        card_one: -1,
+        card_two: -1
+      });
+      this.checkWin();
 
       return true;
     } else {
       this.applyPenalty();
-      await delay(1500);
+      await delay(500);
       this.unflipCards();
       return false;
     }
