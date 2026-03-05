@@ -16,6 +16,8 @@ export class GameService {
   readonly remaining_time = signal(0);
   readonly penalty_label = signal("");
   readonly is_busy = signal(false);
+  private readonly show_all_cards = signal(false);
+
   private game_timer_id: any = null;
 
   private readonly router = inject(Router);
@@ -31,6 +33,14 @@ export class GameService {
       this.game_timer_id = null;
       this.shuffleCards();
     }
+  }
+
+  setShowAllCards(value: boolean) {
+    this.show_all_cards.set(value);
+  }
+
+  canShowAllCards() {
+    return this.show_all_cards();
   }
 
   startGame() {
