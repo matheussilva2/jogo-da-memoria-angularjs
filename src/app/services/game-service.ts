@@ -95,7 +95,7 @@ export class GameService {
 
   private checkWin() {
     if(this.match_pairs().length >= this.cards().length/2) {
-      alert("Ganhou!");
+      this.game_state.set("won");
     }
   }
 
