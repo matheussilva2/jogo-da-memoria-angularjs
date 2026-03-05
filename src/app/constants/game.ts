@@ -28,7 +28,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-1.svg",
       items_count: 6,
       duration: 30,
-      penalty: 2
+      penalty: 10
     },
     {
       key: "medium",
@@ -36,7 +36,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-2.svg",
       items_count: 12,
       duration: 90,
-      penalty: 4
+      penalty: 18
     },
     {
       key: "hard",
@@ -44,7 +44,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-3.svg",
       items_count: 18,
       duration: 120,
-      penalty: 6
+      penalty: 24
     },
 ];
 
