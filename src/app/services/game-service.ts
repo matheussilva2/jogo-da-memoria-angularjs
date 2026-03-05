@@ -149,7 +149,7 @@ export class GameService {
       return true;
     } else {
       this.applyPenalty();
-      await delay(500);
+      await delay(1500);
       this.unflipCards();
       return false;
     }
