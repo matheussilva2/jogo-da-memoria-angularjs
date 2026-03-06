@@ -61,8 +61,8 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
 
 export const GAME_MODES: IGameMode[] = [
     {
-        slug: "emotes",
-        theme: "Encontre os Emotes - Animais",
+        slug: "animais",
+        theme: "Encontre os Emojis - Animais",
         card_classes: "bg-gradient-purple-dark",
         button_classes: "bg-accent-pupile",
         cards: [
@@ -85,5 +85,31 @@ export const GAME_MODES: IGameMode[] = [
             "/assets/cards/animals/turtle.webp",
             "/assets/cards/animals/unicorn.webp",
         ]
-    }
+    },
+    {
+        slug: "emojis",
+        theme: "Encontre os Emojis - Alimentos",
+        card_classes: "bg-gradient-purple-dark",
+        button_classes: "bg-accent-pupile",
+        cards: [
+            "/assets/cards/foods/apple.png",
+            "/assets/cards/foods/blueberry.png",
+            "/assets/cards/foods/broccoli.png",
+            "/assets/cards/foods/cake.png",
+            "/assets/cards/foods/carrot.png",
+            "/assets/cards/foods/cheese.png",
+            "/assets/cards/foods/chicken.png",
+            "/assets/cards/foods/corn.png",
+            "/assets/cards/foods/donut.png",
+            "/assets/cards/foods/garlic.png",
+            "/assets/cards/foods/kiwi.png",
+            "/assets/cards/foods/mushroom.png",
+            "/assets/cards/foods/orange.png",
+            "/assets/cards/foods/peanut.png",
+            "/assets/cards/foods/pepper.png",
+            "/assets/cards/foods/pineapple.png",
+            "/assets/cards/foods/popcorn.png",
+            "/assets/cards/foods/watermelon.png",
+        ]
+    },
 ];
