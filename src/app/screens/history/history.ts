@@ -28,7 +28,11 @@ export class History {
       total_time += match.remaining_time;
     });
 
-    const average = total_time / this.match_history().length;
+    let average = total_time / this.match_history().length;
+
+    if(isNaN(average)) {
+      average = 0;
+    }
 
     return Math.round(average);
   }
