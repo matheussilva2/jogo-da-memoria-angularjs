@@ -314,10 +314,10 @@ export class GameService {
 
     let analytics_stats:any = {...stats};
     analytics_stats.won = stats.won ? "victory" : "defeat";
-    
+
     window.dataLayer.push({
       event: 'stats_data',
-      game_data: { ...analytics_stats }
+      ...analytics_stats
     });
   }
 }
