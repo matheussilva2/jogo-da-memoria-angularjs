@@ -39,6 +39,10 @@ export class History {
     let stored_stats_arr: IGameStats[] = JSON.parse(stored_stats_json) || [];
 
     stored_stats_arr.sort((a, b) => {
+      if(a.won !== b.won) {
+        return b.won ? 1 : -1;
+      }
+
       if(b.score !== a.score) {
         return b.score - a.score;
       }
