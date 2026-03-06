@@ -5,7 +5,7 @@ import { map } from "rxjs";
 import { IGameDifficulty, IGameMode } from "../../constants/game";
 import { GameBoard } from "../../components/game-board/game-board";
 import { TimeFormatPipe } from "../../pipes/time-format-pipe";
-import { GameService } from "../../services/game-service";
+import { GameService } from "../../core/services/game-service";
 import { delay } from "../../utils/delay";
 
 

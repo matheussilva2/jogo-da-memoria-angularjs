@@ -1,5 +1,5 @@
 import { computed, Injectable, signal } from '@angular/core';
-import { Player } from "../models/player.model";
+import { Player } from "../../models/player.model";
 
 const BASIC_PLAYER_MOCK: Player = {
   name: "",
@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor() {
     this.loadSession();
-  }
+  } 
 
   login(player_name: string) {
     this._player.update((current: Player | null) => {

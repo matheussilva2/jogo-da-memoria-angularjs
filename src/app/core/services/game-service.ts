@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStats } from "../constants/game";
+import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStats } from "../../constants/game";
 import { Router } from "@angular/router";
-import { delay } from "../utils/delay";
+import { delay } from "../../utils/delay";
 import { SoundService } from "./sound-service";
 
 declare global {

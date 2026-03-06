@@ -1,5 +1,5 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
-import { GameService } from "../../services/game-service";
+import { GameService } from "../../core/services/game-service";
 import { ICard } from "../../constants/game";
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { AuthService } from "../../services/auth";
+import { AuthService } from "../../core/services/auth";
 import { GAME_DIFFICULTIES, GAME_MODES, IGameDifficulty } from "../../constants/game";
 import { Router, RouterLink } from "@angular/router";
 import { TimeFormatPipe } from "../../pipes/time-format-pipe";
