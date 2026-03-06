@@ -3,6 +3,12 @@ import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGame
 import { Router } from "@angular/router";
 import { delay } from "../utils/delay";
 
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -301,5 +307,13 @@ export class GameService {
     localStorage.setItem("jm_player_ranking", JSON.stringify(new_statistics));
 
     this.current_stats_rank.set(this.getMatchRank(stats));
+
+    let analytics_stats:any = {...stats};
+    analytics_stats.won = stats.won ? "victory" : "defeat";
+    
+    window.dataLayer.push({
+      event: 'stats_data',
+      game_data: { ...analytics_stats }
+    });
   }
 }
