@@ -7,12 +7,16 @@
 
     <div class="flex gap-3 mb-8">
         <div class="flex-1 px-5 py-4 border border-gray-400 rounded-2xl">
-            <span class="block text-heading-xl text-accent-pupile font-extrabold">3</span>
+            <span class="block text-heading-xl text-accent-pupile font-extrabold">
+                {{ getMatchesCount() }}
+            </span>
             <span class="block text-heading-sm text-gray-200">Total de jogos</span>
         </div>
         <div class="flex-1 px-5 py-4 border border-gray-400 rounded-2xl">
-            <span class="block text-heading-xl text-accent-cyan font-extrabold">00:48</span>
-            <span class="block text-heading-sm text-gray-200">Tempo médio</span>
+            <span class="block text-heading-xl text-accent-cyan font-extrabold">
+                {{ getMatchesTimeAverage() | timeFormat}}
+            </span>
+            <span class="block text-heading-sm text-gray-200">Tempo restante médio</span>
         </div>
     </div>
 

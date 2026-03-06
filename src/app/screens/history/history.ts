@@ -17,6 +17,22 @@ export class History {
     this.loadStats();
   }
 
+  getMatchesCount(): number {
+    return this.match_history().length;
+  }
+
+  getMatchesTimeAverage(): number {
+    let total_time = 0;
+    
+    this.match_history().forEach(match => {
+      total_time += match.remaining_time;
+    });
+
+    const average = total_time / this.match_history().length;
+
+    return Math.round(average);
+  }
+
   loadStats() {
     const stored_stats_json = localStorage.getItem('jm_player_ranking') || '[]';
     
