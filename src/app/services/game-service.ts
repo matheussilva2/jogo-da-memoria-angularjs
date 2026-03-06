@@ -40,11 +40,17 @@ export class GameService {
     } else {
       this.game_mode.set(game_config.gamemode);
       this.game_difficulty.set(game_config.difficulty);
-      this.game_timer_id = null;
-      this.match_pairs.set([]);
-      this.moves.set(0);
+      this.resetGameState();
+      this.unflipCards();
       this.shuffleCards();
     }
+  }
+
+  resetGameState() {
+    this.game_timer_id = null;
+    this.match_pairs.set([]);
+    this.moves.set(0);
+    this.is_busy.set(false);
   }
 
   setShowAllCards(value: boolean) {
