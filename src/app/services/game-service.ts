@@ -69,6 +69,7 @@ export class GameService {
     this.game_state.set("lose");
     clearInterval(this.game_timer_id);
     this.game_timer_id = null;
+    this.generateGameStats(false);
   }
 
   unflipCards() {
@@ -136,7 +137,7 @@ export class GameService {
     if(this.match_pairs().length >= this.cards().length/2) {
       this.game_state.set("won");
       clearInterval(this.game_timer_id);
-      this.generateGameStats();
+      this.generateGameStats(true);
     }
   }
 
@@ -263,7 +264,7 @@ export class GameService {
     return rank;
   }
 
-  private generateGameStats() {
+  private generateGameStats(won: boolean) {
     let score = (this.remaining_time() * 20) - this.moves();
 
     switch(this.game_difficulty()?.key) {
@@ -289,7 +290,8 @@ export class GameService {
       moves: this.moves(),
       score,
       theme: this.game_mode()?.theme  || "Desconhecido",
-      date: Date.now()
+      date: Date.now(),
+      won
     };
 
     const stored_stats = this.getStoredStats();

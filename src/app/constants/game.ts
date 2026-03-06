@@ -29,6 +29,7 @@ export interface IGameStats {
     score: number;
     theme: string;
     date: number;
+    won: boolean;
 }
 
 export const GAME_DIFFICULTIES: IGameDifficulty[] = [

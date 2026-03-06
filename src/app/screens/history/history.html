@@ -26,12 +26,14 @@
         @for (match of match_history(); track $index) {
             <div class="p-5 bg-gray-500 border border-gray-400 rounded-2xl mb-3 w-full">
                 <div class="flex justify-between mb-4">
-                    <span class="text-heading-md font-extrabold text-gray-100">{{match.theme}}</span>
+                    <span class="text-heading-md font-extrabold text-gray-100">
+                        {{match.theme}} - {{ match.won?"Vitória":"Derrota" }}
+                    </span>
                     <span class="text-heading-md font-extrabold">{{$index + 1}}°</span>
                 </div>
                 <div class="flex gap-2">
                     <span class="flex items-center justify-center px-2.5 py-1 bg-gray-400 rounded-lg">
-                        {{ match.date | date: 'dd/mm/yy' }}
+                        {{ match.date | date: 'dd/MM/yy' }}
                     </span>
                     <span class="flex items-center justify-center px-2.5 bg-gray-400 rounded-lg">
                         {{ match.remaining_time | timeFormat}}
