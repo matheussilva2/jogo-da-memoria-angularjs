@@ -320,4 +320,10 @@ export class GameService {
       ...analytics_stats
     });
   }
+
+  cancelMatch() {
+    clearInterval(this.game_timer_id);
+    this.game_state.set("idle");
+    return true;
+  }
 }

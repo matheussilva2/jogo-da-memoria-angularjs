@@ -2,11 +2,12 @@ import { Component, effect, inject, signal } from '@angular/core';
 import { toSignal } from "@angular/core/rxjs-interop";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { map } from "rxjs";
-import { GAME_DIFFICULTIES, GAME_MODES, IGameDifficulty, IGameMode } from "../../constants/game";
+import { IGameDifficulty, IGameMode } from "../../constants/game";
 import { GameBoard } from "../../components/game-board/game-board";
 import { TimeFormatPipe } from "../../pipes/time-format-pipe";
 import { GameService } from "../../services/game-service";
 import { delay } from "../../utils/delay";
+
 
 @Component({
   selector: 'app-game',
@@ -16,6 +17,7 @@ import { delay } from "../../utils/delay";
 })
 export class Game {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   readonly game_service = inject(GameService);
 
   readonly slug = toSignal(
@@ -87,5 +89,10 @@ export class Game {
 
     this.is_game_starting.set(false);
     this.game_service.startGame();
+  }
+
+  onExit() {
+    this.game_service.cancelMatch();
+    this.router.navigate(['/jogar']);
   }
 }

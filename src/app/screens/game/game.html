@@ -1,6 +1,6 @@
 <div class="min-h-screen w-full py-8 px-6 max-w-137.5 mx-auto mb-5">
     <div class="w-full flex justify-between mb-8">
-        <a class="icon bg-gray-500 border border-gray-400" routerLink="/jogar">
+        <a class="icon bg-gray-500 border border-gray-400" (click)="onExit()">
             <img src="/assets/icons/arrow-left.svg" width="20" height="20" alt="Voltar" />
         </a>
         <div class="icon w-fit bg-gray-500 border border-gray-400 flex items-center justify-center gap-2 px-4">
@@ -28,7 +28,7 @@
         <p>Encontre todos os pares dentro do tempo!</p>
     </div>
     @if(is_game_starting()) {
-        <div class="absolute top-0 left-0 w-screen h-screen bg-gray-600/50 z-10 flex items-center justify-center">
+        <div class="absolute top-0 left-0 w-screen h-screen z-10 flex items-center justify-center">
             <span class="text-[72px] font-extrabold text-gray-100">{{start_game_count()}}</span>
         </div>
     }
