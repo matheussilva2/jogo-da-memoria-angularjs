@@ -2,6 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { GAME_DIFFICULTIES, GAME_MODES, ICard, IGameDifficulty, IGameMode, IGameStats } from "../constants/game";
 import { Router } from "@angular/router";
 import { delay } from "../utils/delay";
+import { SoundService } from "./sound-service";
 
 declare global {
   interface Window {
@@ -29,6 +30,8 @@ export class GameService {
 
   private readonly router = inject(Router);
   public cards_flipped = signal<{card_one: number, card_two: number}>({ card_one: -1, card_two: -1 });
+
+  constructor(private soundService: SoundService) {}
 
   initGame(gamemode: string, difficulty: string) {
     const game_config = this.getGameConfig(gamemode, difficulty);
@@ -75,6 +78,7 @@ export class GameService {
     this.game_state.set("lose");
     clearInterval(this.game_timer_id);
     this.game_timer_id = null;
+    this.soundService.playSound('lose');
     this.generateGameStats(false);
   }
 
@@ -143,6 +147,7 @@ export class GameService {
     if(this.match_pairs().length >= this.cards().length/2) {
       this.game_state.set("won");
       clearInterval(this.game_timer_id);
+      this.soundService.playSound('won');
       this.generateGameStats(true);
     }
   }
@@ -153,6 +158,8 @@ export class GameService {
     const match = card_one_content === card_two_content;
 
     if(match) {
+      this.soundService.playSound('match');
+
       const updated_cards = this.cards();
       updated_cards[this.cards_flipped().card_one].isLocked = true;
       updated_cards[this.cards_flipped().card_two].isLocked = true;
@@ -209,6 +216,7 @@ export class GameService {
   onCardFlip(card_index: number) {
     if(this.game_state() !== "playing") return;
     this.moves.update(prev => prev+1);
+    this.soundService.playSound('flip');
 
     if(this.is_busy()) return;
     
@@ -283,10 +291,6 @@ export class GameService {
       case 'hard':
         score *= 1.5;
         break;
-    }
-
-    const date = {
-
     }
     
     const stats:IGameStats = {
