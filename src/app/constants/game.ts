@@ -55,7 +55,7 @@ export const GAME_DIFFICULTIES: IGameDifficulty[] = [
       icon: "/assets/icons/level-3.svg",
       items_count: 18,
       duration: 120,
-      penalty: 20
+      penalty: 10
     },
 ];
 
@@ -66,24 +66,24 @@ export const GAME_MODES: IGameMode[] = [
         card_classes: "bg-gradient-purple-dark",
         button_classes: "bg-accent-pupile",
         cards: [
-            "/assets/cards/animals/bear.png",
-            "/assets/cards/animals/bee.png",
-            "/assets/cards/animals/bunny.png",
-            "/assets/cards/animals/cat.png",
-            "/assets/cards/animals/chicken.png",
-            "/assets/cards/animals/cow.png",
-            "/assets/cards/animals/dog.png",
-            "/assets/cards/animals/fish.png",
-            "/assets/cards/animals/fox.png",
-            "/assets/cards/animals/hamster.png",
-            "/assets/cards/animals/horse.png",
-            "/assets/cards/animals/koala.png",
-            "/assets/cards/animals/leon.png",
-            "/assets/cards/animals/octopus.png",
-            "/assets/cards/animals/panda.png",
-            "/assets/cards/animals/pig.png",
-            "/assets/cards/animals/tiger.png",
-            "/assets/cards/animals/unicorn.png",
+            "/assets/cards/animals/bat.webp",
+            "/assets/cards/animals/bird.webp",
+            "/assets/cards/animals/blowfish.webp",
+            "/assets/cards/animals/crocodile.webp",
+            "/assets/cards/animals/dog.webp",
+            "/assets/cards/animals/goat.webp",
+            "/assets/cards/animals/goose.webp",
+            "/assets/cards/animals/horse.webp",
+            "/assets/cards/animals/lottie.webp",
+            "/assets/cards/animals/otter.webp",
+            "/assets/cards/animals/peacock.webp",
+            "/assets/cards/animals/phoenix.webp",
+            "/assets/cards/animals/rabbit.webp",
+            "/assets/cards/animals/rooster.webp",
+            "/assets/cards/animals/snake.webp",
+            "/assets/cards/animals/tiger.webp",
+            "/assets/cards/animals/turtle.webp",
+            "/assets/cards/animals/unicorn.webp",
         ]
     }
 ];
