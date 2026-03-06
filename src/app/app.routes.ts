@@ -3,6 +3,7 @@ import { Home } from "./screens/home/home";
 import { Gamemode } from "./screens/gamemode/gamemode";
 import { History } from "./screens/history/history";
 import { Game } from "./screens/game/game";
+import { authGuard } from "./core/guards/auth.guard";
 
 export const routes: Routes = [
     {
@@ -11,14 +12,17 @@ export const routes: Routes = [
     },
     {
         path: 'jogar',
-        component: Gamemode
+        component: Gamemode,
+        canActivate: [authGuard]
     },
     {
         path: 'historico',
-        component: History
+        component: History,
+        canActivate: [authGuard]
     },
     {
         path: 'jogar/:slug',
-        component: Game
+        component: Game,
+        canActivate: [authGuard]
     }
 ];
